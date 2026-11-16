@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><title>TAUBENGAME</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<canvas id="cv"></canvas>
+<div id="m">
+ <div class="side">
+  <div class="brand"><canvas id="logo" width="156" height="46" aria-label="TAUBENGAME"></canvas>
+   <svg class="dove" viewBox="0 0 100 100" role="img" aria-label="Kleine Taube">
+    <defs>
+     <radialGradient id="dvB" cx="45%" cy="40%" r="70%"><stop offset="0" stop-color="#f3ecff"/><stop offset=".55" stop-color="#d9c9ff"/><stop offset="1" stop-color="#b9a3f2"/></radialGradient>
+     <linearGradient id="dvN" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a8f0d8"/><stop offset="1" stop-color="#ffb3e1"/></linearGradient>
+    </defs>
+    <ellipse cx="50" cy="93" rx="26" ry="4" fill="#000" opacity=".25"/>
+    <g class="dv-body">
+     <path d="M22 62 Q8 58 6 70 Q14 72 26 70 Z" fill="#c4b0fa"/>
+     <path d="M47 84 l-3 8 M47 84 l0 9 M47 84 l3 8 M60 84 l-3 8 M60 84 l0 9 M60 84 l3 8" stroke="#ff9fb2" stroke-width="2.6" stroke-linecap="round"/>
+     <ellipse cx="50" cy="66" rx="30" ry="21" fill="url(#dvB)"/>
+     <ellipse cx="57" cy="72" rx="16" ry="11" fill="#fbf7ff" opacity=".9"/>
+     <path d="M30 60 Q44 50 58 62 Q52 74 36 73 Q29 70 30 60 Z" fill="#c2adf7"/>
+     <path d="M36 66 q4 3 8 0 M41 70 q4 3 8 0" stroke="#a991ee" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+     <ellipse cx="66" cy="49" rx="10" ry="8" fill="url(#dvN)"/>
+     <circle cx="70" cy="36" r="16" fill="url(#dvB)"/>
+     <path d="M84 37 l9 3 l-9 3 Z" fill="#ffb38a"/>
+     <circle cx="84.5" cy="35.5" r="2" fill="#fff"/>
+     <g class="dv-eye"><circle cx="75" cy="34" r="6" fill="#2a2140"/><circle cx="77" cy="31.6" r="2.2" fill="#fff"/><circle cx="73.4" cy="36.4" r="1" fill="#fff"/></g>
+     <ellipse cx="74" cy="44" rx="4.5" ry="2.6" fill="#ff8fb8" opacity=".75"/>
+     <path d="M62 21 q-7 -6 -9 1 q2 5 9 0 q7 5 9 0 q-2 -7 -9 -1 Z" fill="#ff7eb6"/><circle cx="62" cy="21" r="2.2" fill="#ff4f9b"/>
+    </g>
+    <path class="dv-heart" d="M88 14 c-3 -4 -9 -1 -6 4 l6 6 l6 -6 c3 -5 -3 -8 -6 -4 Z" fill="#ff5fa8"/>
+    <path class="dv-spark" d="M18 30 l2 5 l5 2 l-5 2 l-2 5 l-2 -5 l-5 -2 l5 -2 Z" fill="#fff6a8"/>
+    <path class="dv-spark s2" d="M38 12 l1.4 3.4 l3.4 1.4 l-3.4 1.4 l-1.4 3.4 l-1.4 -3.4 l-3.4 -1.4 l3.4 -1.4 Z" fill="#bff3ff"/>
+   </svg></div>
+  <p class="tag" data-en="Co-op shooter for 1 to 4 players. Waves, bosses and a story mode for up to four.">Koop-Shooter für 1 bis 4 Spieler. Wellen, Bosse und ein Story-Modus für bis zu vier.</p>
+  <nav id="nav">
+   <button data-go="story"><b data-en="Story mode">Story-Modus</b><i data-en="Up to 4 against Slimee Rebel">Mit bis zu 4 gegen Slimee Rebel</i></button>
+   <button data-go="host"><b data-en="Co-op &amp; deathmatch">Koop &amp; Deathmatch</b><i data-en="Waves and bosses, alone or with friends">Wellen und Bosse, allein oder mit Freunden</i></button>
+   <button data-go="join"><b data-en="Join">Beitreten</b><i data-en="Enter the host's room code">Raum-Code vom Host eingeben</i></button>
+   <button data-go="guns"><b data-en="Case shop">Case-Shop</b><i id="ls" class="dyn">Coins</i></button>
+   <button data-go="opts"><b data-en="Settings">Einstellungen</b><i data-en="Volume, language, controls">Lautstärke, Sprache, Steuerung</i></button>
+  </nav>
+  <div class="foot">
+   <label class="name"><span data-en="Player name">Spielername</span><input id="nm" maxlength="10" value="Spieler"></label>
+   <div class="langsw"><button data-lang="de">Deutsch</button><button data-lang="en">English</button></div>
+  </div>
+ </div>
+ <div class="stage">
+  <section class="pane" id="p-story">
+   <h2 data-en="Story mode">Story-Modus</h2>
+   <p class="lead" data-en="Slimee Rebel wants the Insta account Lifestylecrazy back. Six levels, six bosses, and he's the last one.">Slimee Rebel will den Insta-Account Lifestylecrazy zurück. Sechs Level, sechs Bosse, am Ende er selbst.</p>
+   <h3 data-en="Room code for your squad">Raum-Code für dein Squad</h3><div class="code" id="hc2">...</div>
+   <p id="pl2" class="hint dyn"></p>
+   <h3 data-en="Your character">Dein Charakter</h3><div class="chars dyn" id="cg"></div>
+   <div class="grid3"><label><span data-en="Difficulty">Schwierigkeit</span><select id="sdf"><option value="0" data-en="Easy">Leicht</option><option value="1" selected>Normal</option><option value="2" data-en="Hard">Hart</option></select></label></div>
+   <div class="row"><button class="pri big" onclick="startStory(0)" data-en="Start new game">Neues Spiel starten</button><button class="big dyn" id="scont" onclick="startStory(1)">Fortsetzen</button></div>
+   <p class="hint" data-en="You start with just a pistol. After every level there is a case opening with a new weapon. Up to 3 friends enter the code under “Join”, even after the game has started. Playing alone works too. More players means more enemies and tougher bosses.">Start nur mit Pistole. Nach jedem Level gibt es ein Case Opening mit neuer Waffe. Bis zu 3 Mitspieler geben den Code unter „Beitreten“ ein, das geht auch nach dem Start. Alleine spielen geht auch. Mit mehr Spielern kommen mehr Gegner, und die Bosse halten mehr aus.</p>
+  </section>
+  <section class="pane" id="p-host">
+   <h2 data-en="Co-op &amp; deathmatch">Koop &amp; Deathmatch</h2>
+   <p class="lead" data-en="A boss shows up every 5 waves: Lil M, Drachenlord, SehrJamal, Jermaine, Raphael, Jxhn2K, Slimee Rebel.">Alle 5 Wellen kommt ein Boss: Lil M, Drachenlord, SehrJamal, Jermaine, Raphael, Jxhn2K, Slimee Rebel.</p>
+   <h3 data-en="Room code for other players">Raum-Code für Mitspieler</h3><div class="code" id="hc">...</div>
+   <p id="pl" class="hint dyn"></p>
+   <h3 data-en="Your character">Dein Charakter</h3><div class="chars dyn" id="cg3"></div>
+   <div class="grid3">
+    <label><span data-en="Map">Karte</span><select id="mp"><option value="0">Arena</option><option value="1" data-en="Ring maze">Ringlabyrinth</option><option value="2" data-en="Pillar hall (hell)">Pfeilerhalle (Hölle)</option><option value="3">Bunker</option><option value="4" data-en="Cathedral">Kathedrale</option><option value="5" data-en="Snake path">Schlangenweg</option><option value="6">Präsidentenstraße</option><option value="7" data-en="Ultimate Fight Arena Bonn">Ultimative Kampf Arena Bonn</option></select></label>
+    <label><span data-en="Difficulty">Schwierigkeit</span><select id="df"><option value="0" data-en="Easy">Leicht</option><option value="1" selected>Normal</option><option value="2" data-en="Hard">Hart</option></select></label>
+    <label><span data-en="Mode">Modus</span><select id="gm"><option value="0" data-en="Co-op">Koop</option><option value="1" data-en="Deathmatch (2+)">Deathmatch (ab 2)</option></select></label></div>
+   <div class="row"><button class="pri big" onclick="startGame()" data-en="Start game">Spiel starten</button></div>
+   <details><summary data-en="Connect without internet (manual codes)">Ohne Internet verbinden (manuelle Codes)</summary><div><button onclick="invite()" data-en="Invite player">Mitspieler einladen</button>
+    <p data-en="1. Send this code to the other player:">1. Diesen Code an den Mitspieler schicken:</p><textarea id="oc" readonly></textarea>
+    <p data-en="2. Paste the other player's answer code here:">2. Antwort-Code des Mitspielers hier einfügen:</p><textarea id="ia"></textarea>
+    <button onclick="accept()" data-en="Connect">Verbinden</button></div></details>
+  </section>
+  <section class="pane" id="p-join">
+   <h2 data-en="Join">Beitreten</h2>
+   <h3 data-en="Room code from the host">Raum-Code vom Host</h3>
+   <div class="row joinrow"><input id="jc" maxlength="12" placeholder="ABCD"><button class="pri" onclick="joinCode()" data-en="Connect">Verbinden</button></div><p id="js2" class="hint dyn"></p>
+   <h3 data-en="Your character">Dein Charakter</h3><div class="chars dyn" id="cg2"></div>
+   <details><summary data-en="Connect without internet (manual codes)">Ohne Internet verbinden (manuelle Codes)</summary><div><p data-en="1. Paste the host's code:">1. Code vom Host einfügen:</p><textarea id="ic"></textarea>
+    <button onclick="join()" data-en="Create answer code">Antwort-Code erzeugen</button>
+    <p data-en="2. Send this answer code to the host:">2. Diesen Antwort-Code an den Host schicken:</p><textarea id="oc2" readonly></textarea>
+    <p id="js" data-en="Then wait, the game starts automatically.">Danach warten, das Spiel startet automatisch.</p></div></details>
+  </section>
+  <section class="pane" id="p-guns">
+   <h2><span data-en="Case shop" style="font-size:inherit;color:inherit">Case-Shop</span> <span id="coinbal"></span></h2>
+   <p class="lead" data-en="Spend your coins on chests here. New weapons count for co-op and deathmatch and stay unlocked. You earn coins in co-op and story mode: 1 coin per 10 points, a boss is worth 50.">Hier gibst du deine Coins für Kisten aus. Neue Waffen gelten für Koop und Deathmatch und bleiben freigeschaltet. Coins verdienst du in Koop und Story: 1 Coin pro 10 Punkte, ein Boss bringt 50.</p>
+   <div id="chests" class="dyn"></div>
+   <div id="reel"><div class="strip dyn"></div><div class="mark"></div></div>
+   <div id="reelres" class="res dyn"></div>
+   <h3 data-en="Your weapons">Deine Waffen</h3>
+   <div id="inv" class="dyn"></div>
+   <p class="hint" data-en="Story mode stays the same: you start with the pistol and get weapons from the case opening after every level. Every character also has an ultimate on Q.">Im Story-Modus bleibt alles wie gehabt: Du startest mit der Pistole und bekommst Waffen über das Case Opening nach jedem Level. Jeder Charakter hat zusätzlich eine Ulti auf Q.</p>
+  </section>
+  <section class="pane" id="p-opts">
+   <h2 data-en="Settings">Einstellungen</h2>
+   <h3 data-en="Language">Sprache</h3><div class="row langrow"><button data-lang="de">Deutsch</button><button data-lang="en">English</button></div>
+   <h3 data-en="Effects volume">Effekte</h3><input type="range" id="sv" min="0" max="100" value="70">
+   <h3 data-en="Music volume">Musik</h3><input type="range" id="mv" min="0" max="100" value="15">
+   <h3 data-en="Mouse and stick sensitivity">Maus- und Stick-Empfindlichkeit</h3><input type="range" id="se" min="30" max="250" value="100">
+   <p class="hint" data-en="In story mode every level has its own song. For co-op you can pick your own file here:">Im Story-Modus hat jedes Level seinen eigenen Song. Für Koop kannst du hier eine eigene Datei wählen:</p><input type="file" id="mf" accept="audio/*">
+   <div class="ctl">
+   <h3 data-en="Keyboard and mouse">Tastatur und Maus</h3>
+   <p data-en="<kbd>WASD</kbd> move, mouse aim and look up/down, click shoot, right click aim down sights, <kbd>Q</kbd> ultimate, <kbd>Space</kbd> jump, <kbd>Shift</kbd> run, <kbd>1</kbd>–<kbd>9</kbd> or mouse wheel switch weapon, <kbd>Esc</kbd> menu, <kbd>M</kbd> minimap, <kbd>N</kbd> mute, <kbd>Enter</kbd> continue dialogue."><kbd>WASD</kbd> laufen, Maus zielen und hoch/runter schauen, Klick schießen, Rechtsklick zielen, <kbd>Q</kbd> Ulti, <kbd>Leertaste</kbd> springen, <kbd>Shift</kbd> rennen, <kbd>1</kbd>–<kbd>9</kbd> oder Mausrad Waffe wechseln, <kbd>Esc</kbd> Menü, <kbd>M</kbd> Minimap, <kbd>N</kbd> Ton aus, <kbd>Enter</kbd> Dialoge weiter.</p>
+   <h3>Controller</h3>
+   <p data-en="Left stick move, right stick aim, <kbd>RT</kbd> shoot, <kbd>X</kbd> ultimate, <kbd>A</kbd> jump and continue dialogue, <kbd>LT</kbd> aim, click left stick to run, <kbd>RB</kbd>/<kbd>LB</kbd> switch weapon, <kbd>Y</kbd> minimap, <kbd>Start</kbd> menu. In menus: d-pad up/down, <kbd>A</kbd> select, <kbd>B</kbd> back.">Linker Stick laufen, rechter Stick zielen, <kbd>RT</kbd> schießen, <kbd>X</kbd> Ulti, <kbd>A</kbd> springen und Dialoge weiter, <kbd>LT</kbd> zielen, linken Stick drücken rennen, <kbd>RB</kbd>/<kbd>LB</kbd> Waffe wechseln, <kbd>Y</kbd> Minimap, <kbd>Start</kbd> Menü. In Menüs: Steuerkreuz auf/ab, <kbd>A</kbd> auswählen, <kbd>B</kbd> zurück.</p>
+   <p class="hint" data-en="Jumping dodges projectiles near the ground. Bombs still hit.">Wer springt, weicht Geschossen am Boden aus. Bomben treffen trotzdem.</p>
+   </div>
+  </section>
+ </div>
+</div>
+<!-- Menue im Spiel (Esc / Start) -->
+<div id="pm"><div class="pmbox">
+ <h2 data-en="Game menu">Spielmenü</h2>
+ <p class="hint dyn" id="pm-note"></p>
+ <button class="pri big" id="pm-go" data-en="Resume">Weiterspielen</button>
+ <label><span data-en="Effects volume">Effekte</span><input type="range" id="pm-sv" min="0" max="100"></label>
+ <label><span data-en="Music volume">Musik</span><input type="range" id="pm-mv" min="0" max="100"></label>
+ <label><span data-en="Mouse and stick sensitivity">Maus- und Stick-Empfindlichkeit</span><input type="range" id="pm-se" min="30" max="250"></label>
+ <div class="row"><button id="pm-map" class="dyn">Minimap: an</button><button id="pm-mute" class="dyn">Ton: an</button><button id="pm-fs" data-en="Fullscreen">Vollbild</button></div>
+ <div class="row langrow"><button data-lang="de">Deutsch</button><button data-lang="en">English</button></div>
+ <details><summary data-en="Controls">Steuerung</summary><div id="pm-ctl"></div></details>
+ <button id="pm-quit" class="dyn">Zum Hauptmenü</button>
+</div></div>
+<script src="js/peerjs.min.js"></script>
+<script src="js/lang.js"></script>
+<script src="js/game.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/vm.js"></script>
+<script src="js/story.js"></script>
+<script src="js/ult.js"></script>
+<script src="js/shop.js"></script>
+<script src="js/menu.js"></script>
+<script>boot();shopInit()</script>
+</body></html>
